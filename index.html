@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডিজিটাল ভিক্ষা | স্নিগ্ধ'র প্রজেক্ট</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #ff4757;
+            --bg: #0b0e14;
+            --card-bg: #1a1f29;
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: var(--card-bg);
+            max-width: 400px; width: 100%;
+            padding: 40px 25px;
+            border-radius: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .avatar {
+            font-size: 70px;
+            background: #252c3a;
+            width: 130px; height: 130px;
+            line-height: 130px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 20px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0, 210, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+        }
+
+        h1 { color: var(--primary); font-size: 30px; margin-bottom: 5px; }
+        .tagline { color: #8892b0; margin-bottom: 25px; font-size: 15px; }
+
+        /* Goal Bar */
+        .goal-container { margin-bottom: 25px; text-align: left; }
+        .goal-label { font-size: 13px; display: flex; justify-content: space-between; margin-bottom: 5px; color: #a8b2d1; }
+        .progress-bg { background: #2d3748; height: 10px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 85%; height: 100%; }
+
+        /* Buttons */
+        .btn-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .btn {
+            padding: 12px; border: none; border-radius: 15px;
+            font-weight: 700; cursor: pointer; transition: 0.3s;
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .btn-give { background: var(--primary); color: #000; }
+        .btn-dua { background: #2d3748; color: #fff; }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        .btn:active { transform: scale(0.95); }
+
+        /* Bkash Box */
+        .bkash-box {
+            background: #252c3a; padding: 15px; border-radius: 20px;
+            border: 1px solid #333; margin-bottom: 20px;
+        }
+        .num-label { font-size: 12px; color: #8892b0; margin-bottom: 5px; }
+        .number { font-size: 20px; font-weight: bold; color: #fff; }
+        .copy-chip {
+            background: var(--accent); color: white; border: none;
+            padding: 4px 10px; border-radius: 8px; font-size: 12px;
+            cursor: pointer; margin-left: 10px;
+        }
+
+        .sad-text { font-size: 14px; color: #a8b2d1; font-style: italic; }
+
+        footer {
+            margin-top: 30px; font-size: 13px; color: #555;
+        }
+        .dev-name { color: var(--primary); font-weight: bold; text-decoration: none; }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed; bottom: -50px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: #000; padding: 10px 25px;
+            border-radius: 50px; font-weight: bold; transition: 0.5s; opacity: 0;
+        }
+        #toast.show { bottom: 30px; opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="avatar">👨🏻‍💻</div>
+        <h1>ডিজিটাল ভিক্ষুক</h1>
+        <p class="tagline">আপনার দানে আমার কীবোর্ডের বাটন জ্বলবে!</p>
+
+        <div class="goal-container">
+            <div class="goal-label">
+                <span>লক্ষ্য: একটি Gaming PC</span>
+                <span>৮৫% পূর্ণ</span>
+            </div>
+            <div class="progress-bg">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="btn-box">
+            <button class="btn btn-give" onclick="playSound('coin')">ভিক্ষা দিন 💸</button>
+            <button class="btn btn-dua" onclick="playSound('dua')">দোয়া নিন 🙏</button>
+        </div>
+
+        <div class="bkash-box">
+            <p class="num-label">বিকাশ (পার্সোনাল)</p>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <span class="number" id="bkashNum">01903234407</span>
+                <button class="copy-chip" onclick="copyText()">Copy</button>
+            </div>
+        </div>
+
+        <p class="sad-text">
+            "একটু সাহায্য করলে আপনার পকেট হালকা হবে,<br>কিন্তু আমার মন ভরে যাবে! 😭"
+        </p>
+
+        <footer>
+            তৈরি করেছেন <span class="dev-name">স্নিগ্ধ</span><br>
+            © ডিজিটাল ভিক্ষা প্রজেক্ট | ২০২৪
+        </footer>
+    </div>
+
+    <div id="toast">নাম্বার কপি হয়েছে! ✅</div>
+
+    <audio id="coinSound" src="https://www.soundjay.com/misc/sounds/coins-spilled-1.mp3"></audio>
+    <audio id="duaSound" src="https://www.myinstants.com/media/sounds/notification.mp3"></audio>
+
+    <script>
+        function playSound(type) {
+            if(type === 'coin') {
+                document.getElementById('coinSound').play();
+                alert("মাশাআল্লাহ! দাতা হাতেম তাই এর বংশধর নাকি আপনি?");
+            } else {
+                document.getElementById('duaSound').play();
+                alert("আল্লাহ আপনার সাত তলা বিল্ডিং করার তৌফিক দান করুক! আমিন।");
+            }
+        }
+
+        function copyText() {
+            const num = document.getElementById('bkashNum').innerText;
+            navigator.clipboard.writeText(num);
+            
+            const toast = document.getElementById('toast');
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+</body>
+</html>
